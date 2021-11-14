@@ -1,7 +1,8 @@
 package database
 
 type Url struct {
-	date string
-	fullUrl string
-	ShortenedUrl string
+	Id int `json:"id"`
+	Date string `json:"date"`
+	FullUrl string `json:"fullUrl"`
+	ShortenedUrl string `json:"ShortenedUrl"`
 }
