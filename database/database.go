@@ -6,7 +6,7 @@ import (
 	"UrlShortener/configReader"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"UrlShortener/database/models"
+	"UrlShortener/models"
 )
 
 //interface
@@ -43,13 +43,13 @@ func ConnectToTheDatabase(configLocation string) {
 		log.Println("Connection Established")
 	}
 
-	// db.AutoMigrate(&database.Url{})
+	AutoMigrate(&models.Url{})
 }
 
-// Implement AutoMigrateFunc
+// Implement AutoMigrateFunc (example: &models.Url{})
 
-func AutoMigrate() {
-	Db.AutoMigrate(&database.Url{})
+func AutoMigrate(model interface{}) {
+	Db.AutoMigrate(&model)
 }
 
 // Implement the close connection to the database function
