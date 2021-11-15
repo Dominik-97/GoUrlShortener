@@ -43,13 +43,13 @@ func ConnectToTheDatabase(configLocation string) {
 		log.Println("Connection Established")
 	}
 
-	AutoMigrate(&models.Url{})
+	AutoMigrate(models.Url{})
 }
 
 // Implement AutoMigrateFunc (example: &models.Url{})
 
 func AutoMigrate(model interface{}) {
-	Db.AutoMigrate(&model)
+	Db.AutoMigrate(model)
 }
 
 // Implement the close connection to the database function
