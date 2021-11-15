@@ -7,6 +7,7 @@ import (
 	"UrlShortener/models"
 	"encoding/json"
 	"UrlShortener/database"
+	//"reflect"
 )
 
 func Store(w http.ResponseWriter, r *http.Request) {
@@ -14,6 +15,7 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 
 	//Convert the byte array to a map
+	//Check if provided body is of type json
 	var m map[string]interface{}
 	err := decoder.Decode(&m)
     if err != nil {
@@ -39,12 +41,35 @@ func Store(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic("Problem")
 	}
+	//fmt.Println(database.Db.DB())
+
+	//Test if reconnection works properly if I close the database connection
+	//database.CloseConnection(database.Db)
+
+	if err := database.CheckTheDatabaseConnection(); err != nil {
+		fmt.Println("Not connected, connecting again.")
+		database.ConnectToTheDatabase("configuration/application.yaml")
+	}
 
 	// Unmarshal the data to the UrlObject struct
     var UrlObject models.Url
     json.Unmarshal(newData, &UrlObject)
     
 	// Check if database connection is established and connect if it does not
+	//if err := database.Db.Ping(); err != nil {
+    //    panic(err)
+    //}
+	//fooType := reflect.TypeOf(database.Db)
+	//for i := 0; i < fooType.NumMethod(); i++ {
+    //	method := fooType.Method(i)
+    //	fmt.Println(method.Name)
+	//}
+	//sqlDB := database.Db.DB()
+	//if err := sqlDB.Ping(); err != nil {
+    //    fmt.Println("Not connected")
+    //}else{
+	//	fmt.Println("Connected")
+	//}
 
 	// Create the record in the database
     database.Db.Create(&UrlObject)

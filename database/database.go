@@ -43,6 +43,8 @@ func ConnectToTheDatabase(configLocation string) {
 		log.Println("Connection Established")
 	}
 
+	// defer Db.Close()
+
 	AutoMigrate(models.Url{})
 }
 
@@ -56,4 +58,8 @@ func AutoMigrate(model interface{}) {
 
 func CloseConnection(db *gorm.DB) error {
 	return db.Close()
+}
+
+func CheckTheDatabaseConnection() error {
+	return Db.DB().Ping()
 }
