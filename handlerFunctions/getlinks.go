@@ -41,7 +41,9 @@ func GetLinks(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Endpoint Hit: returnAllBookings")
 
-	fmt.Printf("%T", bookings)
+	// fmt.Printf("%T", bookings)
 
-	json.NewEncoder(w).Encode(bookings)
+	bookings2 := models.UrlPaginated{Urls:bookings, Page:1, PerPage:1}
+
+	json.NewEncoder(w).Encode(bookings2)
 }
