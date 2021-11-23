@@ -4,6 +4,7 @@ import (
     "gopkg.in/yaml.v2"
     "io/ioutil"
     "log"
+    "os"
 )
 
 type Conf struct {
@@ -19,10 +20,12 @@ func (c *Conf) GetConf(fileLocation string) *Conf {
     yamlFile, err := ioutil.ReadFile(fileLocation)
     if err != nil {
         log.Printf("yamlFile.Get err   #%v ", err)
+        os.Exit(1)
     }
     err = yaml.Unmarshal(yamlFile, c)
     if err != nil {
         log.Fatalf("Unmarshal: %v", err)
+        os.Exit(1)
     }
 
     return c

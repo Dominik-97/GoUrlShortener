@@ -5,4 +5,5 @@ type Url struct {
 	Date string `json:"date"`
 	FullUrl string `json:"fullUrl"`
 	ShortenedUrl string `json:"ShortenedUrl"`
+	TimesClicked int `json:"timesClicked"`
 }

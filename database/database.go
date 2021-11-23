@@ -9,11 +9,6 @@ import (
 	"UrlShortener/models"
 )
 
-//interface
-//type db struct {
-//	var db *gorm.DB
-//}
-
 var Db *gorm.DB
 var err error
 
@@ -23,8 +18,6 @@ func LoadConfig(configLocation string) configReader.Conf {
 
 	return config
 }
-
-// Implement connect to the database function
 
 func ConnectToTheDatabase(configLocation string) {
 	config := LoadConfig(configLocation)
@@ -43,8 +36,6 @@ func ConnectToTheDatabase(configLocation string) {
 		log.Println("Connection Established")
 	}
 
-	// defer Db.Close()
-
 	AutoMigrate(models.Url{})
 }
 
@@ -59,6 +50,8 @@ func AutoMigrate(model interface{}) {
 func CloseConnection(db *gorm.DB) error {
 	return db.Close()
 }
+
+// Implement the check database connection function
 
 func CheckTheDatabaseConnection() error {
 	return Db.DB().Ping()
